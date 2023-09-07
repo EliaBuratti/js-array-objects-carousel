@@ -21,7 +21,7 @@ const slides = [
   
 let activeSlide = 0;
 
-// select the dom elements
+// seleziono gli elementi della dom
 const sliderImagesEl = document.querySelector('.slider .images');
 const prevEl = document.querySelector('.prev');
 const nextEl = document.querySelector('.next');
@@ -43,8 +43,7 @@ slides.forEach((slide, index) => {
 
 });
   
-const slidesImages = document.querySelectorAll('.slider .images > img')
-console.log(slidesImages);
+const slidesImages = document.querySelectorAll('.slider .images > img');
 
 // intercept click on the next icon 
 nextEl.addEventListener('click', function(){
@@ -114,13 +113,11 @@ nextSlide.classList.add('active');
 
 // select the next thumb
 const nextThumb = document.querySelectorAll('.thumb')[activeSlide]
-console.log(nextThumb);
 
 // add to the next thumb the active class
 nextThumb.classList.add('active');
     
     
 }
-
 
 
