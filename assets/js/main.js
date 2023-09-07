@@ -20,12 +20,17 @@ const slides = [
 ];
   
 let activeSlide = 0;
+let slideDirection = 'next';
+let slideAuto; //la utilizzo per decidere quando attivare o disattivare il timer usando una funzione
 
 // seleziono gli elementi della dom
 const sliderImagesEl = document.querySelector('.slider .images');
 const prevEl = document.querySelector('.prev');
 const nextEl = document.querySelector('.next');
 const thumbsElement = document.querySelector('.thumbnails');
+const buttonReverse = document.querySelector('button');
+const buttonSlide = document.querySelector('#scrolling');
+const infoScroll = document.querySelector('p');
   
 //ciclo le slide con un forEach  
 slides.forEach((slide, index) => {
@@ -42,20 +47,57 @@ slides.forEach((slide, index) => {
     thumbsElement.insertAdjacentHTML('beforeend', thumbMarkup)
 
 });
-  
-const slidesImages = document.querySelectorAll('.slider .images > img');
 
-// intercept click on the next icon 
-nextEl.addEventListener('click', function(){
-    onClick('next');
+//volendo posso racchiudere parte del contenuto di questi eventlistener in una funzione------------
+
+        // intercept click on the next icon 
+        nextEl.addEventListener('click', function(){
+            //interrompo lo scrolling
+            auto(true);
+
+            //rimuovo il suggerimento
+            removeClass(infoScroll, 'active');
+
+            //cambio la direzione della slide
+            slideDirection = 'next';
+
+            //richiamo la funzione con il parametro con la direzione della slide
+            onClick(slideDirection);
+
+        });
+
+        // intercept click on the prev icon
+        prevEl.addEventListener('click', function () {
+            //interrompo lo scrolling
+            auto(true);
+
+            //rimuovo il suggerimento
+            removeClass(infoScroll, 'active');
+
+            //cambio la direzione della slide
+            slideDirection = 'prev';
+
+            //richiamo la funzione con il parametro con la direzione della slide
+            onClick(slideDirection);
+        });
+//volendo posso racchiudere parte del contenuto di questi eventlistener in una funzione------------
+
+//inverto lo scorrimento automatico delle slide
+buttonReverse.addEventListener('click', function(){
+    
+    if (slideDirection === 'next'){
+        auto(true);
+        slideDirection = 'prev';
+        console.log('cambio in prev');
+
+    } else {
+        auto(true);
+        slideDirection = 'next';
+        console.log('cambio in next');
+    };
+    auto(false);
+    infoScroll.classList.add('active');
 });
-
-// intercept click on the prev icon
-prevEl.addEventListener('click', function () {
-    onClick('prev');
-});
-
-
 //funzione da eseguire al click
 
 /**
@@ -63,9 +105,11 @@ prevEl.addEventListener('click', function () {
  * @param {string} direction accept only 'next' or 'prev'
  */
 function onClick(direction) {
-    
+
+    const slidesImages = document.querySelectorAll('.slider .images > img');
+
     // select the current slide
-    const currentSlide = slidesImages[activeSlide]
+    const currentSlide = slidesImages[activeSlide];
 
     // remove the active class from the current slide
     currentSlide.classList.remove('active')
@@ -117,7 +161,40 @@ const nextThumb = document.querySelectorAll('.thumb')[activeSlide]
 // add to the next thumb the active class
 nextThumb.classList.add('active');
     
-    
-}
+};
+
+
+/**
+ * 
+ * @param {boolean} boolean richiede un valore true o false
+ */
+function auto (boolean){
+
+    if (!boolean) {
+
+        slideAuto = setInterval(function(){
+            onClick(slideDirection);
+            console.log(slideDirection);
+        }, 1500);
+
+        //cambio testo nel bottone
+        buttonSlide.innerHTML = 'Click to reverse scrolling';
+
+    } else {   
+        //interrompo il timer e ripristino la scritta del bottone    
+        clearInterval(slideAuto);
+        buttonSlide.innerHTML = 'Start scrolling';
+    }
+};
+
+/**
+ * 
+ * @param {DomElement} DOMel inserire l'elemento targhet
+ * @param {string} className inserire nome della classe senza il punto
+ */
+function removeClass (DOMel, className) {
+    DOMel.classList.remove(className);
+};
+
 
 
