@@ -107,17 +107,17 @@ function onClick(direction) {
 
     };
 
-    // select the next slide
-    const nextSlide = slidesImages[activeSlide];
-    // add the active class to the next slide
-    nextSlide.classList.add('active');
+// select the next slide
+const nextSlide = slidesImages[activeSlide];
+// add the active class to the next slide
+nextSlide.classList.add('active');
 
-    // select the next thumb
-    const nextThumb = document.querySelectorAll('.thumb')[activeSlide]
-    console.log(nextThumb);
+// select the next thumb
+const nextThumb = document.querySelectorAll('.thumb')[activeSlide]
+console.log(nextThumb);
 
-    // add to the next thumb the active class
-    nextThumb.classList.add('active');
+// add to the next thumb the active class
+nextThumb.classList.add('active');
     
     
 }
