@@ -8,7 +8,7 @@ Bonus 2:
 E se volessi un bottone per invertire la "direzione" del carosello? */
 
 
-  //Modifichiamo il codice dell'esercizio per renderlo funzionante con un array di oggetti al posto di un array di stringhe.
+//Modifichiamo il codice dell'esercizio per renderlo funzionante con un array di oggetti al posto di un array di stringhe.
 const slides = [
 
     { picture:'01.webp'},
@@ -17,7 +17,7 @@ const slides = [
     { picture:'04.webp'},
     { picture:'05.webp'},
     
-  ];
+];
   
 let activeSlide = 0;
 
@@ -48,80 +48,79 @@ console.log(slidesImages);
 
 // intercept click on the next icon 
 nextEl.addEventListener('click', function(){
-console.log('cliccato su next');
-
-// select the current slide
-const currentSlide = slidesImages[activeSlide]
-console.log(currentSlide);
-// remove the active class from the current slide
-currentSlide.classList.remove('active')
-
-// select the active thumb
-const currentThumb = document.querySelector('.thumbnails > img.active')
-console.log(currentThumb);
-// remove the active class from the active thumb
-currentThumb.classList.remove('active')
-
-
-// activeSlide = 4
-
-if (activeSlide === slidesImages.length - 1) {
-    activeSlide = 0
-    // activeSlide = 5
-} else {
-    // increment the activeSlide of 1
-    activeSlide++
-}
-
-
-// select the next slide
-const nextSlide = slidesImages[activeSlide]
-console.log(nextSlide);
-// add the active class to the next slide
-nextSlide.classList.add('active')
-
-
-/* TODO */
-
-
-// select the next thumb
-const nextThumb = document.querySelectorAll('.thumb')[activeSlide]
-console.log(nextThumb);
-// add to the next thumb the active class
-nextThumb.classList.add('active')
-
-
-})
+    onClick('next');
+});
 
 // intercept click on the prev icon
-
-
-// activeSlide = 0
 prevEl.addEventListener('click', function () {
-console.log('cliccato su prev');
+    onClick('prev');
+});
 
 
-// select the current slide
-const currentSlide = slidesImages[activeSlide]
-console.log(currentSlide);
-// remove the active class from the current slide
-currentSlide.classList.remove('active')
+//funzione da eseguire al click
 
-if (activeSlide === 0) {
-    activeSlide = slidesImages.length - 1
-    // activeSlide = 5
-} else {
-    // decrement the activeSlide of 1
-    activeSlide--
+/**
+ * 
+ * @param {string} direction accept only 'next' or 'prev'
+ */
+function onClick(direction) {
+    
+    // select the current slide
+    const currentSlide = slidesImages[activeSlide]
+
+    // remove the active class from the current slide
+    currentSlide.classList.remove('active')
+    
+    // select the active thumb
+    const currentThumb = document.querySelector('.thumbnails > img.active')
+
+    // remove the active class from the active thumb
+    currentThumb.classList.remove('active')
+    
+    
+
+    switch (direction) {
+
+        case 'next':
+            
+            // activeSlide = 4
+            if (activeSlide === slidesImages.length - 1) {
+                activeSlide = 0
+                // activeSlide = 5
+            } else {
+                // increment the activeSlide of 1
+                activeSlide++
+            }
+        break;
+
+        case 'prev':
+        
+            // activeSlide = 0
+            if (activeSlide === 0) {
+                activeSlide = slidesImages.length - 1
+                // activeSlide = 5
+            } else {
+                // decrement the activeSlide of 1
+                activeSlide--
+            }
+        break;
+
+    };
+
+    // select the next slide
+    const nextSlide = slidesImages[activeSlide];
+    // add the active class to the next slide
+    nextSlide.classList.add('active');
+
+    // select the next thumb
+    const nextThumb = document.querySelectorAll('.thumb')[activeSlide]
+    console.log(nextThumb);
+
+    // add to the next thumb the active class
+    nextThumb.classList.add('active');
+    
+    
 }
 
 
-console.log(activeSlide);
 
-
-// select the next slide
-const nextSlide = slidesImages[activeSlide]
-console.log(nextSlide);
-// add the active class to the next slide
-nextSlide.classList.add('active')
-})
