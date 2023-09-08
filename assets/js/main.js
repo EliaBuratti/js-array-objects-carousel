@@ -53,7 +53,7 @@ slides.forEach((slide, index) => {
         // intercept click on the next icon 
         nextEl.addEventListener('click', function(){
             //interrompo lo scrolling
-            autoscroll(true);
+            autoScroll(false);
 
             //rimuovo il suggerimento
             removeClass(infoScroll, 'active');
@@ -69,7 +69,7 @@ slides.forEach((slide, index) => {
         // intercept click on the prev icon
         prevEl.addEventListener('click', function () {
             //interrompo lo scrolling
-            autoScroll(true);
+            autoScroll(false);
 
             //rimuovo il suggerimento
             removeClass(infoScroll, 'active');
@@ -86,16 +86,16 @@ slides.forEach((slide, index) => {
 buttonReverse.addEventListener('click', function(){
     
     if (slideDirection === 'next'){
-        autoScroll(true);
+        autoScroll(false);
         slideDirection = 'prev';
         console.log('cambio in prev');
 
     } else {
-        autoScroll(true);
+        autoScroll(false);
         slideDirection = 'next';
         console.log('cambio in next');
     };
-    autoScroll(false);
+    autoScroll(true);
     infoScroll.classList.add('active');
 });
 //funzione da eseguire al click
@@ -172,6 +172,11 @@ function autoScroll (boolean){
 
     if (!boolean) {
 
+        //interrompo il timer e ripristino la scritta del bottone    
+        clearInterval(slideAuto);
+        buttonSlide.innerHTML = 'Start scrolling';
+        
+    } else {   
         slideAuto = setInterval(function(){
             onClick(slideDirection);
             console.log(slideDirection);
@@ -180,10 +185,6 @@ function autoScroll (boolean){
         //cambio testo nel bottone
         buttonSlide.innerHTML = 'Click to reverse scrolling';
 
-    } else {   
-        //interrompo il timer e ripristino la scritta del bottone    
-        clearInterval(slideAuto);
-        buttonSlide.innerHTML = 'Start scrolling';
     }
 };
 
